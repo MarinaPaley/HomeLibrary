@@ -3,6 +3,7 @@
 // </copyright>
 namespace TestDomain
 {
+    using System;
     using Domain;
 
     /// <summary>

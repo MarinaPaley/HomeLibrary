@@ -6,7 +6,7 @@ namespace Domain
     /// <summary>
     /// Класс Автор.
     /// </summary>
-    public class Author : IEquatable<Author>
+    public sealed class Author : IEquatable<Author>
     {
         /// <summary>
         /// Инициализирует новый экземпляр класса <see cref="Author"/>.
