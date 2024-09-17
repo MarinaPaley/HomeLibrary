@@ -6,7 +6,7 @@ namespace Domain
     /// <summary>
     /// Класс Полка.
     /// </summary>
-    public sealed class Shelf
+    public sealed class Shelf : IEquatable<Shelf>
     {
         /// <summary>
         /// Инициализирует новый экземпляр класса <see cref="Shelf"/>.
@@ -30,6 +30,28 @@ namespace Domain
         public string Name { get; }
 
         /// <inheritdoc/>
+        public bool Equals(Shelf? other)
+        {
+            if (other is null)
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, other))
+            {
+                return true;
+            }
+
+            return this.Name == other.Name;
+        }
+
+        /// <inheritdoc/>
         public override string ToString() => $"{this.Name}";
+
+        /// <inheritdoc/>
+        public override bool Equals(object? obj) => this.Equals(obj as Shelf);
+
+        /// <inheritdoc/>
+        public override int GetHashCode() => this.Name.GetHashCode();
     }
 }

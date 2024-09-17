@@ -35,5 +35,26 @@ namespace TestDomain
         {
             Assert.Throws<ArgumentNullException>(() => _ = new Shelf(null!));
         }
+
+        /// <summary>
+        /// Тесты на метод Equals.
+        /// </summary>
+        /// <param name="name1"> Название первой полки. </param>
+        /// <param name="name2"> Название второй полуки. </param>
+        /// <param name="expected"> Результат метода Equals.</param>
+        [TestCase("1", "1", true)]
+        [TestCase("1", "2", false)]
+        public void Equals_ValidData_Success(string name1, string name2, bool expected)
+        {
+            // arrange
+            var shelf1 = new Shelf(name1);
+            var shelf2 = new Shelf(name2);
+
+            // act
+            var actual = shelf1.Equals(shelf2);
+
+            // assert
+            Assert.That(actual, Is.EqualTo(expected));
+        }
     }
 }
