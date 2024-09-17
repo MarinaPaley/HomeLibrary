@@ -40,7 +40,7 @@ namespace TestDomain
         /// Тесты на метод Equals.
         /// </summary>
         /// <param name="name1"> Название первой полки. </param>
-        /// <param name="name2"> Название второй полуки. </param>
+        /// <param name="name2"> Название второй полки. </param>
         /// <param name="expected"> Результат метода Equals.</param>
         [TestCase("1", "1", true)]
         [TestCase("1", "2", false)]
