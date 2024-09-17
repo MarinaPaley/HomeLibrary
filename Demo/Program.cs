@@ -1,7 +1,20 @@
-﻿internal class Program
+﻿// <copyright file="Program.cs" company="Васильева М.А.">
+// Copyright (c) Васильева М.А.. All rights reserved.
+// </copyright>
+namespace Demo
 {
-    private static void Main(string[] args)
+    using System;
+    using Domain;
+
+    /// <summary>
+    /// Точка входа.
+    /// </summary>
+    internal static class Program
     {
-        Console.WriteLine("Hello, World!");
+        private static void Main(string[] args)
+        {
+            var shelf = new Shelf("Первая полка");
+            Console.WriteLine(shelf);
+        }
     }
 }
