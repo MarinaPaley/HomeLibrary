@@ -12,16 +12,23 @@ namespace Domain
         /// Инициализирует новый экземпляр класса <see cref="Author"/>.
         /// </summary>
         /// <param name="firsName"> Имя. </param>
-        /// <param name="familyName"> Фамилия.</param>
+        /// <param name="familyName"> Фамилия. </param>
         /// <param name="patronicName"> Отчество. </param>
-        /// <param name="bithData"> дата рождения.</param>
+        /// <param name="dateBirth"> Дата рождения. </param>
+        /// <param name="dateDeath"> Дата смерти. </param>
         /// <exception cref="ArgumentNullException"> Если ФИО <see langword="null"/>. </exception>
-        public Author(string familyName, string firsName, string? patronicName, DateTime bithData)
+        public Author(
+            string familyName,
+            string firsName,
+            string? patronicName,
+            DateOnly? dateBirth,
+            DateOnly? dateDeath)
         {
             this.FirsName = firsName ?? throw new ArgumentNullException(nameof(firsName));
             this.FamilyName = familyName ?? throw new ArgumentNullException(nameof(familyName));
             this.PatronicName = patronicName;
-            this.BithData = bithData;
+            this.DateBirth = dateBirth;
+            this.DateDeath = dateDeath;
         }
 
         /// <summary>
@@ -47,7 +54,12 @@ namespace Domain
         /// <summary>
         /// Дата рождения.
         /// </summary>
-        public DateTime BithData { get; }
+        public DateOnly? DateBirth { get; }
+
+        /// <summary>
+        /// Дата смерти.
+        /// </summary>
+        public DateOnly? DateDeath { get; }
 
         /// <inheritdoc/>
         public bool Equals(Author? other)
@@ -63,12 +75,21 @@ namespace Domain
             }
 
             var areEqual = this.FirsName == other.FirsName
-                && this.FamilyName == other.FamilyName
-                && this.BithData == other.BithData;
+                && this.FamilyName == other.FamilyName;
 
             if (areEqual && this.PatronicName is not null)
             {
                 areEqual = areEqual && this.PatronicName == other.PatronicName;
+            }
+
+            if (areEqual && this.DateBirth is not null)
+            {
+                areEqual = areEqual && this.DateBirth == other.DateBirth;
+            }
+
+            if (areEqual && other.DateDeath is not null)
+            {
+                areEqual = areEqual && this.DateDeath == other.DateDeath;
             }
 
             return areEqual;
@@ -83,11 +104,20 @@ namespace Domain
         /// <inheritdoc/>
         public override int GetHashCode()
         {
-            var result = this.FirsName.GetHashCode() + this.FirsName.GetHashCode() 
-                + this.BithData.GetHashCode();
+            var result = this.FirsName.GetHashCode() + this.FirsName.GetHashCode();
             if (this.PatronicName is not null)
             {
                 result += this.PatronicName.GetHashCode();
+            }
+
+            if (this.DateBirth is not null)
+            {
+                result += this.DateBirth.GetHashCode();
+            }
+
+            if (this.DateDeath is not null)
+            {
+                result += this.DateDeath.GetHashCode();
             }
 
             return result;

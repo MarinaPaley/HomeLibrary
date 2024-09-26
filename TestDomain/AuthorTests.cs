@@ -19,10 +19,11 @@ namespace TestDomain
         public void Ctor_ValidData_Success()
         {
             // arrange
-            DateTime dateBirthDate = DateTime.Parse("28.09.1828");
+            var birtDate = new DateOnly(1828, 09, 28);
+            var deathDate = new DateOnly(1910, 11, 7);
 
             // act & assert
-            Assert.DoesNotThrow(() => _ = new Author("Толстой", "Лев", "Николаевич", dateBirthDate));
+            Assert.DoesNotThrow(() => _ = new Author("Толстой", "Лев", "Николаевич", birtDate, deathDate));
         }
     }
 }
