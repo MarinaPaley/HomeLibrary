@@ -1,6 +1,8 @@
 ﻿// <copyright file="Shelf.cs" company="Васильева М.А.">
 // Copyright (c) Васильева М.А.. All rights reserved.
 // </copyright>
+using Staff;
+
 namespace Domain
 {
     /// <summary>
@@ -29,6 +31,35 @@ namespace Domain
         /// </summary>
         public string Name { get; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public ISet<Book> Books { get; set; } = new HashSet<Book>();
+
+        public Shelf AddBook(Book book)
+        {
+            if (book is null)
+            {
+                throw new ArgumentNullException(nameof(book));
+            }
+
+            this.Books.Add(book);
+            book.Shelf = this;
+            return this;
+        }
+
+        public Shelf RemoveBook(Book book)
+        {
+            if (book is null)
+            {
+                throw new ArgumentNullException(nameof(book));
+            }
+
+            this.Books.Remove(book);
+            book.Shelf = null;
+            return this;
+        }
+
         /// <inheritdoc/>
         public bool Equals(Shelf? other)
         {
@@ -46,7 +77,7 @@ namespace Domain
         }
 
         /// <inheritdoc/>
-        public override string ToString() => $"{this.Name}";
+        public override string ToString() => $"{this.Name} {this.Books.Join()}";
 
         /// <inheritdoc/>
         public override bool Equals(object? obj) => this.Equals(obj as Shelf);

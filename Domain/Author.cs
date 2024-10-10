@@ -1,6 +1,8 @@
 ﻿// <copyright file="Author.cs" company="Васильева М.А.">
 // Copyright (c) Васильева М.А.. All rights reserved.
 // </copyright>
+using Staff;
+
 namespace Domain
 {
     /// <summary>
@@ -24,9 +26,9 @@ namespace Domain
             DateOnly? dateBirth,
             DateOnly? dateDeath)
         {
-            this.FirsName = firsName ?? throw new ArgumentNullException(nameof(firsName));
-            this.FamilyName = familyName ?? throw new ArgumentNullException(nameof(familyName));
-            this.PatronicName = patronicName;
+            this.FirstName = firsName.TrimOrNull() ?? throw new ArgumentNullException(nameof(firsName));
+            this.FamilyName = familyName.TrimOrNull() ?? throw new ArgumentNullException(nameof(familyName));
+            this.PatronicName = patronicName is not null ? patronicName.TrimOrNull() : null;
             this.DateBirth = dateBirth;
             this.DateDeath = dateDeath;
         }
@@ -39,7 +41,7 @@ namespace Domain
         /// <summary>
         /// Имя.
         /// </summary>
-        public string FirsName { get; }
+        public string FirstName { get; }
 
         /// <summary>
         /// Фамилия.
@@ -61,6 +63,8 @@ namespace Domain
         /// </summary>
         public DateOnly? DateDeath { get; }
 
+        public ISet<Book> Books { get; set; } = new HashSet<Book>();
+
         /// <inheritdoc/>
         public bool Equals(Author? other)
         {
@@ -74,25 +78,34 @@ namespace Domain
                 return true;
             }
 
-            var areEqual = this.FirsName == other.FirsName
-                && this.FamilyName == other.FamilyName;
-
-            if (areEqual && this.PatronicName is not null)
+            if (this.FirstName != other.FirstName
+               || this.FamilyName != other.FamilyName)
             {
-                areEqual = areEqual && this.PatronicName == other.PatronicName;
+                return false;
             }
 
-            if (areEqual && this.DateBirth is not null)
+            if (((this.PatronicName is not null) && (other.PatronicName is null))
+                || ((this.PatronicName is null) && (other.PatronicName is not null))
+                || ((this.PatronicName is not null) && (this.PatronicName != other.PatronicName)))
             {
-                areEqual = areEqual && this.DateBirth == other.DateBirth;
+                return false;
             }
 
-            if (areEqual && other.DateDeath is not null)
+            if (((this.DateBirth is not null) && (other.DateBirth is null))
+                || ((this.DateBirth is null) && (other.DateBirth is not null))
+                || ((this.DateBirth is not null) && (this.DateBirth != other.DateBirth)))
             {
-                areEqual = areEqual && this.DateDeath == other.DateDeath;
+                return false;
             }
 
-            return areEqual;
+            if (((this.DateDeath is not null) && (other.DateDeath is null))
+                || ((this.DateDeath is null) && (other.DateDeath is not null))
+                || ((this.DateDeath is not null) && (this.DateDeath != other.DateDeath)))
+            {
+                return false;
+            }
+
+            return true;
         }
 
         /// <inheritdoc/>
@@ -104,7 +117,7 @@ namespace Domain
         /// <inheritdoc/>
         public override int GetHashCode()
         {
-            var result = this.FirsName.GetHashCode() + this.FirsName.GetHashCode();
+            var result = this.FirstName.GetHashCode() + this.FirstName.GetHashCode();
             if (this.PatronicName is not null)
             {
                 result += this.PatronicName.GetHashCode();

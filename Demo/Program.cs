@@ -14,6 +14,12 @@ namespace Demo
         private static void Main(string[] args)
         {
             var shelf = new Shelf("Первая полка");
+            var book1 = new Book("1");
+            var book2 = new Book("2");
+
+            _ = shelf.AddBook(book1)
+                     .AddBook(book2);
+
             Console.WriteLine(shelf);
         }
     }
