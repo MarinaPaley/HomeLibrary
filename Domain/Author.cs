@@ -1,10 +1,10 @@
 ﻿// <copyright file="Author.cs" company="Васильева М.А.">
 // Copyright (c) Васильева М.А.. All rights reserved.
 // </copyright>
-using Staff;
-
 namespace Domain
 {
+    using Staff;
+
     /// <summary>
     /// Класс Автор.
     /// </summary>
@@ -22,9 +22,9 @@ namespace Domain
         public Author(
             string familyName,
             string firsName,
-            string? patronicName,
-            DateOnly? dateBirth,
-            DateOnly? dateDeath)
+            string? patronicName = null,
+            DateOnly? dateBirth = null,
+            DateOnly? dateDeath = null)
         {
             this.FirstName = firsName.TrimOrNull() ?? throw new ArgumentNullException(nameof(firsName));
             this.FamilyName = familyName.TrimOrNull() ?? throw new ArgumentNullException(nameof(familyName));
@@ -63,7 +63,22 @@ namespace Domain
         /// </summary>
         public DateOnly? DateDeath { get; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public ISet<Book> Books { get; set; } = new HashSet<Book>();
+
+        public Author AddBook(Book book)
+        {
+            if (book is null)
+            {
+                throw new ArgumentNullException(nameof(book));
+            }
+
+            this.Books.Add(book);
+            book.Authors.Add(this);
+            return this;
+        }
 
         /// <inheritdoc/>
         public bool Equals(Author? other)
@@ -115,25 +130,14 @@ namespace Domain
         }
 
         /// <inheritdoc/>
-        public override int GetHashCode()
+        public override int GetHashCode() => HashCode.Combine(this.FirstName, this.FamilyName, this.PatronicName, this.DateBirth, this.DateDeath);
+
+        /// <inheritdoc/>
+        public override string ToString()
         {
-            var result = this.FirstName.GetHashCode() + this.FirstName.GetHashCode();
-            if (this.PatronicName is not null)
-            {
-                result += this.PatronicName.GetHashCode();
-            }
-
-            if (this.DateBirth is not null)
-            {
-                result += this.DateBirth.GetHashCode();
-            }
-
-            if (this.DateDeath is not null)
-            {
-                result += this.DateDeath.GetHashCode();
-            }
-
-            return result;
+            return this.PatronicName is null 
+                ? $"{this.FamilyName} {this.FirstName}"
+                : $"{this.FamilyName} {this.FirstName} {this.PatronicName}";
         }
     }
 }

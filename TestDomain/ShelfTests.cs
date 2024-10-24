@@ -4,12 +4,13 @@
 namespace TestDomain
 {
     using System;
+    using System.Xml.Linq;
     using Domain;
 
     /// <summary>
     /// Тесты для клсса <see cref="Domain.Shelf"/>.
     /// </summary>
-    public class ShelfTests
+    public sealed class ShelfTests
     {
         /// <summary>
         /// Тест на ToString().
@@ -56,6 +57,22 @@ namespace TestDomain
 
             // assert
             Assert.That(actual, Is.EqualTo(expected));
+        }
+
+        [Test]
+        public void AddBook_ValidData_Success()
+        {
+            // arrange
+            var shelf = new Shelf("Первая полка");
+            var author = new Author("Толстой", "Лев");
+            var expected = 1;
+
+            // act
+            var book = new Book("Война и мир", shelf, author); // AddShelf(book)
+            var actual = shelf.Books.Count;
+
+            // assert
+            Assert.That(actual == expected, Is.True);
         }
     }
 }

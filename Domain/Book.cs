@@ -34,11 +34,51 @@ namespace Domain
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="title"></param>
+        /// <param name="title"> </param>
+        /// <param name="shelf"> </param>
+        /// <param name="authors"> </param>
         /// <exception cref="ArgumentNullException"></exception>
-        public Book( string title)
+        public Book(string title, Shelf shelf, ISet<Author> authors)
         {
             this.Title = title.TrimOrNull() ?? throw new ArgumentNullException(nameof(title));
+            this.Shelf = shelf ?? throw new ArgumentNullException(nameof(shelf));
+            this.Shelf.AddBook(this);
+            this.Authors = authors;
+            foreach (var author in authors)
+            {
+                _ = author.AddBook(this);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="title"> </param>
+        /// <param name="shelf"> </param>
+        /// <param name="authors"> </param>
+        public Book(string title, Shelf shelf, params Author[] authors)
+            : this(title, shelf, new HashSet<Author>(authors))
+        {
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="shelf"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        public bool ChangeShelf(Shelf shelf)
+        {
+            if (shelf is null)
+            {
+                throw new ArgumentNullException(nameof(shelf));
+            }
+
+            _ = this.Shelf.RemoveBook(this);
+            this.Shelf = shelf;
+            _ = this.Shelf.AddBook(this);
+
+            return true;
         }
 
         ///
@@ -73,7 +113,7 @@ namespace Domain
         /// <inheritdoc/>
         public override string ToString()
         {
-            return this.Title;
+            return $"{this.Title} {this.Authors.Join()}";
         }
     }
 }

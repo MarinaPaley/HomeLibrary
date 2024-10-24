@@ -11,7 +11,7 @@ namespace TestDomain
     /// <summary>
     /// Тесты для клсса <see cref="Domain.Author"/>.
     /// </summary>
-    public class AuthorTests
+    public sealed class AuthorTests
     {
         /// <summary>
         /// Тест на конструктор с правильными данными.
@@ -65,7 +65,7 @@ namespace TestDomain
             var dateBirth = new DateOnly(1828, 09, 28);
             var dateDeath = new DateOnly(1910, 10, 20);
             Assert.Throws<ArgumentNullException>(
-                () => _ = new Author(familyName, firstName, null, dateBirth, dateDeath));
+                () => _ = new Author(familyName!, firstName!, null, dateBirth, dateDeath));
         }
 
         /// <summary>
@@ -109,6 +109,20 @@ namespace TestDomain
 
             // Act & Assert
             Assert.That(author1, Is.Not.EqualTo(author2));
+        }
+
+        [TestCase("Николаевич", "Толстой Лев Николаевич")]
+        [TestCase(null, "Толстой Лев")]
+        public void ToString_VallidData_Success(string? patronicName, string expected)
+        {
+            // arrange
+            var author = new Author("Толстой", "Лев", patronicName);
+
+            // act
+            var actual = author.ToString();
+
+            // assert
+            Assert.That(actual, Is.EqualTo(expected));
         }
 
         private static IEnumerable<TestCaseData> ValidDateData()

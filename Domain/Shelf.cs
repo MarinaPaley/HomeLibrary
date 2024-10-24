@@ -47,8 +47,8 @@ namespace Domain
             book.Shelf = this;
             return this;
         }
-
-        public Shelf RemoveBook(Book book)
+        
+        internal Shelf RemoveBook(Book book)
         {
             if (book is null)
             {

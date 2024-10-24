@@ -12,6 +12,7 @@ namespace Staff
     public static class EnumerableExtensions
     {
         /// <inheritdoc cref="string.Join{T}(string?,IEnumerable{T})"/>
-        public static string Join<T>(this IEnumerable<T> values, string separator = ", ") => string.Join(separator, values);
+        public static string Join<T>(this IEnumerable<T> values, string separator = ", ")
+            => string.Join(separator, values);
     }
 }
