@@ -64,10 +64,16 @@ namespace Domain
         public DateOnly? DateDeath { get; }
 
         /// <summary>
-        /// 
+        /// Книги.
         /// </summary>
-        public ISet<Book> Books { get; set; } = new HashSet<Book>();
+        public ISet<Book> Books { get; } = new HashSet<Book>();
 
+        /// <summary>
+        /// Добавляем книгу автору.
+        /// </summary>
+        /// <param name="book"> Книга. </param>
+        /// <returns> Автор. </returns>
+        /// <exception cref="ArgumentNullException"> Если книга <see langword="null"/>. </exception>
         public Author AddBook(Book book)
         {
             if (book is null)

@@ -1,10 +1,10 @@
 ﻿// <copyright file="Shelf.cs" company="Васильева М.А.">
 // Copyright (c) Васильева М.А.. All rights reserved.
 // </copyright>
-using Staff;
-
 namespace Domain
 {
+    using Staff;
+
     /// <summary>
     /// Класс Полка.
     /// </summary>
@@ -32,10 +32,16 @@ namespace Domain
         public string Name { get; }
 
         /// <summary>
-        /// 
+        /// Книги.
         /// </summary>
         public ISet<Book> Books { get; set; } = new HashSet<Book>();
 
+        /// <summary>
+        /// Добавить книгу.
+        /// </summary>
+        /// <param name="book"> Книга. </param>
+        /// <returns> Полка. </returns>
+        /// <exception cref="ArgumentNullException"> Если книга <see langword="null"/>.</exception>
         public Shelf AddBook(Book book)
         {
             if (book is null)
@@ -45,18 +51,6 @@ namespace Domain
 
             this.Books.Add(book);
             book.Shelf = this;
-            return this;
-        }
-        
-        internal Shelf RemoveBook(Book book)
-        {
-            if (book is null)
-            {
-                throw new ArgumentNullException(nameof(book));
-            }
-
-            this.Books.Remove(book);
-            book.Shelf = null;
             return this;
         }
 
@@ -77,12 +71,31 @@ namespace Domain
         }
 
         /// <inheritdoc/>
-        public override string ToString() => $"{this.Name} {this.Books.Join()}";
-
-        /// <inheritdoc/>
         public override bool Equals(object? obj) => this.Equals(obj as Shelf);
 
         /// <inheritdoc/>
+        public override string ToString() => $"{this.Name} {this.Books.Join()}";
+
+        /// <inheritdoc/>
         public override int GetHashCode() => this.Name.GetHashCode();
+
+        /// <summary>
+        /// Убрать книгу с полки.
+        /// </summary>
+        /// <param name="book">Книга. </param>
+        /// <returns> Полка.</returns>
+        /// <exception cref="ArgumentNullException">Если книга <see langword="null"/>.</exception>
+        internal Shelf RemoveBook(Book book)
+        {
+            if (book is null)
+            {
+                throw new ArgumentNullException(nameof(book));
+            }
+
+            this.Books.Remove(book);
+            book.Shelf = null;
+            return this;
+        }
+
     }
 }

@@ -2,42 +2,22 @@
 // Copyright (c) Васильева М.А.. All rights reserved.
 // </copyright>
 
-using Staff;
-
 namespace Domain
 {
+    using Staff;
+
     /// <summary>
-    /// 
+    /// Класс книга.
     /// </summary>
     public sealed class Book : IEquatable<Book>
     {
         /// <summary>
-        /// 
+        /// Инициализирует новый экземпляр класса <see cref="Domain.Book"/>.
         /// </summary>
-        public Guid Id { get; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public string Title { get; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public ISet<Author> Authors { get; set; } = new HashSet<Author>();
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public Shelf Shelf { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="title"> </param>
-        /// <param name="shelf"> </param>
-        /// <param name="authors"> </param>
-        /// <exception cref="ArgumentNullException"></exception>
+        /// <param name="title"> Название. </param>
+        /// <param name="shelf"> Полка.</param>
+        /// <param name="authors"> Авторы.</param>
+        /// <exception cref="ArgumentNullException"> Если название <see langword="null"/>. </exception>
         public Book(string title, Shelf shelf, ISet<Author> authors)
         {
             this.Title = title.TrimOrNull() ?? throw new ArgumentNullException(nameof(title));
@@ -51,22 +31,43 @@ namespace Domain
         }
 
         /// <summary>
-        /// 
+        /// Инициализирует новый экземпляр класса <see cref="Domain.Book"/>.
         /// </summary>
-        /// <param name="title"> </param>
-        /// <param name="shelf"> </param>
-        /// <param name="authors"> </param>
+        /// <param name="title"> Название.</param>
+        /// <param name="shelf"> Полка.</param>
+        /// <param name="authors"> Авторы.</param>
+        /// <exception cref="ArgumentNullException"> Если название <see langword="null"/>. </exception>
         public Book(string title, Shelf shelf, params Author[] authors)
             : this(title, shelf, new HashSet<Author>(authors))
         {
         }
 
         /// <summary>
-        /// 
+        /// Идентификатор.
         /// </summary>
-        /// <param name="shelf"></param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentNullException"></exception>
+        public Guid Id { get; }
+
+        /// <summary>
+        /// Название книги.
+        /// </summary>
+        public string Title { get; }
+
+        /// <summary>
+        /// Авторы книги.
+        /// </summary>
+        public ISet<Author> Authors { get; } = new HashSet<Author>();
+
+        /// <summary>
+        /// Полка.
+        /// </summary>
+        public Shelf Shelf { get; set; }
+
+        /// <summary>
+        /// Смена полки.
+        /// </summary>
+        /// <param name="shelf"> Полка.</param>
+        /// <returns><see langword="true"/> если поменяли полку. </returns>
+        /// <exception cref="ArgumentNullException"> Если полка <see langword="null"/>.</exception>
         public bool ChangeShelf(Shelf shelf)
         {
             if (shelf is null)
