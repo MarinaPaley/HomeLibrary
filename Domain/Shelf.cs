@@ -71,7 +71,10 @@ namespace Domain
         }
 
         /// <inheritdoc/>
-        public override bool Equals(object? obj) => this.Equals(obj as Shelf);
+        public override string ToString() =>
+            this.Books.Count == 0 ?
+            $"{this.Name}"
+            : $"{this.Name} {this.Books.Join()}";
 
         /// <inheritdoc/>
         public override string ToString() => $"{this.Name} {this.Books.Join()}";

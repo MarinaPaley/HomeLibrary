@@ -136,14 +136,14 @@ namespace Domain
         }
 
         /// <inheritdoc/>
-        public override int GetHashCode() => HashCode.Combine(this.FirstName, this.FamilyName, this.PatronicName, this.DateBirth, this.DateDeath);
-
-        /// <inheritdoc/>
-        public override string ToString()
+        public override int GetHashCode()
         {
-            return this.PatronicName is null 
-                ? $"{this.FamilyName} {this.FirstName}"
-                : $"{this.FamilyName} {this.FirstName} {this.PatronicName}";
+            return HashCode.Combine(
+                this.FamilyName,
+                this.FirstName,
+                this.PatronicName,
+                this.DateBirth,
+                this.DateDeath);
         }
     }
 }
