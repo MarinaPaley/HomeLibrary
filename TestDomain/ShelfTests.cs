@@ -19,7 +19,7 @@ namespace TestDomain
         public void ToString_ValidData_Success()
         {
             // arrange
-            var expected = "Тестовая полка";
+            var expected = "Тестовая полка ";
             var shelf = new Shelf(expected);
 
             // act
