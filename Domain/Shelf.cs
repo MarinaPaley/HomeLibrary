@@ -82,9 +82,11 @@ namespace Domain
         /// <summary>
         /// Убрать книгу с полки.
         /// </summary>
-        /// <param name="book">Книга. </param>
+        /// <param name="book"> Книга. </param>
         /// <returns> Полка.</returns>
-        /// <exception cref="ArgumentNullException">Если книга <see langword="null"/>.</exception>
+        /// <exception cref="ArgumentNullException">
+        /// В случае если <paramref name="book"/> – <see langword="null"/>.
+        /// </exception>
         internal Shelf RemoveBook(Book book)
         {
             if (book is null)
@@ -96,6 +98,5 @@ namespace Domain
             book.Shelf = null;
             return this;
         }
-
     }
 }

@@ -141,7 +141,7 @@ namespace Domain
         /// <inheritdoc/>
         public override string ToString()
         {
-            return this.PatronicName is null 
+            return this.PatronicName is null
                 ? $"{this.FamilyName} {this.FirstName}"
                 : $"{this.FamilyName} {this.FirstName} {this.PatronicName}";
         }
