@@ -11,6 +11,7 @@ namespace TestDomain
     /// <summary>
     /// Тесты для клсса <see cref="Domain.Author"/>.
     /// </summary>
+    [TestFixture]
     public sealed class AuthorTests
     {
         /// <summary>
@@ -60,6 +61,7 @@ namespace TestDomain
         /// <param name="firstName"> Имя.</param>
         [TestCase(null, "")]
         [TestCase("", null)]
+        [TestCase("   ", " ")]
         public void Ctor_WrongData_ExpectedException(string? familyName, string? firstName)
         {
             var dateBirth = new DateOnly(1828, 09, 28);
@@ -89,8 +91,8 @@ namespace TestDomain
         public void Equals_SimilarAuthorsDiffernetPatronicName_NotEqual()
         {
             // Arrange
-            var author1 = new Author("Толстой", "Лев", "Николаевич", new DateOnly(1828, 09, 28), null);
-            var author2 = new Author("Толстой", "Лев", null, new DateOnly(1828, 09, 28), null);
+            var author1 = new Author("Толстой", "Лев", "Николаевич");
+            var author2 = new Author("Толстой", "Лев");
 
             // Act & Assert
             Assert.That(author1, Is.Not.EqualTo(author2));

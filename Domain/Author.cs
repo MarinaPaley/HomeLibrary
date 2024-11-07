@@ -28,7 +28,7 @@ namespace Domain
         {
             this.FirstName = firsName.TrimOrNull() ?? throw new ArgumentNullException(nameof(firsName));
             this.FamilyName = familyName.TrimOrNull() ?? throw new ArgumentNullException(nameof(familyName));
-            this.PatronicName = patronicName is not null ? patronicName.TrimOrNull() : null;
+            this.PatronicName = patronicName?.TrimOrNull();
             this.DateBirth = dateBirth;
             this.DateDeath = dateDeath;
         }
@@ -86,44 +86,12 @@ namespace Domain
         /// <inheritdoc/>
         public bool Equals(Author? other)
         {
-            if (other is null)
-            {
-                return false;
-            }
-
-            if (ReferenceEquals(this, other))
-            {
-                return true;
-            }
-
-            if (this.FirstName != other.FirstName
-               || this.FamilyName != other.FamilyName)
-            {
-                return false;
-            }
-
-            if (((this.PatronicName is not null) && (other.PatronicName is null))
-                || ((this.PatronicName is null) && (other.PatronicName is not null))
-                || ((this.PatronicName is not null) && (this.PatronicName != other.PatronicName)))
-            {
-                return false;
-            }
-
-            if (((this.DateBirth is not null) && (other.DateBirth is null))
-                || ((this.DateBirth is null) && (other.DateBirth is not null))
-                || ((this.DateBirth is not null) && (this.DateBirth != other.DateBirth)))
-            {
-                return false;
-            }
-
-            if (((this.DateDeath is not null) && (other.DateDeath is null))
-                || ((this.DateDeath is null) && (other.DateDeath is not null))
-                || ((this.DateDeath is not null) && (this.DateDeath != other.DateDeath)))
-            {
-                return false;
-            }
-
-            return true;
+            return ReferenceEquals(this, other) || ((other is not null)
+                    && (this.FirstName == other.FirstName)
+                    && (this.FamilyName == other.FamilyName)
+                    && (this.PatronicName == other.PatronicName)
+                    && (this.DateBirth == other.DateBirth)
+                    && (this.DateDeath == other.DateDeath));
         }
 
         /// <inheritdoc/>
@@ -141,6 +109,14 @@ namespace Domain
                 this.PatronicName,
                 this.DateBirth,
                 this.DateDeath);
+        }
+
+        /// <inheritdoc/>
+        public override string ToString()
+        {
+            return this.PatronicName is null ?
+                $"{this.FamilyName} {this.FirstName}"
+                : $"{this.FamilyName} {this.FirstName} {this.PatronicName}";
         }
     }
 }

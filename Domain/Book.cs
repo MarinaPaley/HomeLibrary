@@ -82,19 +82,7 @@ namespace Domain
         ///
         /// <inheritdoc/>
         public bool Equals(Book? other)
-        {
-            if (other is null)
-            {
-                return false;
-            }
-
-            if (ReferenceEquals(this, other))
-            {
-                return true;
-            }
-
-            return this.Title.Equals(other.Title);
-        }
+            => ReferenceEquals(this, other) || ((other is not null) && this.Title.Equals(other.Title));
 
         /// <inheritdoc/>
         public override bool Equals(object? obj)

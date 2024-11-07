@@ -1,5 +1,5 @@
-// <copyright file="BookTests.cs" company="Васильева М.А.">
-// Copyright (c) Васильева М.А.. All rights reserved.
+п»ї// <copyright file="BookTests.cs" company="Р’Р°СЃРёР»СЊРµРІР° Рњ.Рђ.">
+// Copyright (c) Р’Р°СЃРёР»СЊРµРІР° Рњ.Рђ.. All rights reserved.
 // </copyright>
 
 using System;
@@ -7,14 +7,14 @@ using System.Collections.Generic;
 using Domain;
 
 /// <summary>
-/// Тесты для класса <see cref="Domain.Book"/>.
+/// РўРµСЃС‚С‹ РґР»СЏ РєР»Р°СЃСЃР° <see cref="Domain.Book"/>.
 /// </summary>
 [TestFixture]
 public sealed class BookTests
 {
-    private static readonly Shelf Shelf = new ("Полка");
+    private static readonly Shelf Shelf = new ("РџРѕР»РєР°");
 
-    private static readonly ISet<Author> Authors = new HashSet<Author>() { new ("Толстой", "Лев"), };
+    private static readonly ISet<Author> Authors = new HashSet<Author>() { new ("РўРѕР»СЃС‚РѕР№", "Р›РµРІ"), };
 
     [Test]
     public void Ctor_NullTitle_ExpectedArgumentNullException()
@@ -27,8 +27,8 @@ public sealed class BookTests
     public void ChangeShelf_ValidData_Bool()
     {
         // arrange
-        var book = new Book("Война и мир", Shelf, Authors);
-        var shelf2 = new Shelf("Вторая полка");
+        var book = new Book("Р’РѕР№РЅР° Рё РјРёСЂ", Shelf, Authors);
+        var shelf2 = new Shelf("Р’С‚РѕСЂР°СЏ РїРѕР»РєР°");
 
         // act
         var result = book.ChangeShelf(shelf2);
@@ -45,7 +45,7 @@ public sealed class BookTests
     public void ChangeShelf_NullShelf_ExpectedException()
     {
         // arrange
-        var book = new Book("Война и мир", Shelf, Authors);
+        var book = new Book("Р’РѕР№РЅР° Рё РјРёСЂ", Shelf, Authors);
 
         // act & assert
         Assert.Throws<ArgumentNullException>(() => book.ChangeShelf(null!));
@@ -68,18 +68,18 @@ public sealed class BookTests
     {
         yield return new TestCaseData(
             new HashSet<Author>()
-        { new ("Толстой", "Лев") }, "Анна Каренина",
-            "Анна Каренина Толстой Лев");
+        { new ("РўРѕР»СЃС‚РѕР№", "Р›РµРІ") }, "РђРЅРЅР° РљР°СЂРµРЅРёРЅР°",
+            "РђРЅРЅР° РљР°СЂРµРЅРёРЅР° РўРѕР»СЃС‚РѕР№ Р›РµРІ");
 
         yield return new TestCaseData(
             new HashSet<Author>()
-        { new ("Ильф", "Илья"), new ("Петров", "Евгений") }, "12 стульев",
-            "12 стульев Ильф Илья, Петров Евгений");
+        { new ("РР»СЊС„", "РР»СЊСЏ"), new ("РџРµС‚СЂРѕРІ", "Р•РІРіРµРЅРёР№") }, "12 СЃС‚СѓР»СЊРµРІ",
+            "12 СЃС‚СѓР»СЊРµРІ РР»СЊС„ РР»СЊСЏ, РџРµС‚СЂРѕРІ Р•РІРіРµРЅРёР№");
 
         yield return new TestCaseData(
             new HashSet<Author>()
-        { new ("Васильева", "Марина"), new ("Балакина", "Екатерина"), new ("Филипченко", "Константин") },
-            "ИОСУ",
-            "ИОСУ Васильева Марина, Балакина Екатерина, Филипченко Константин");
+        { new ("Р’Р°СЃРёР»СЊРµРІР°", "РњР°СЂРёРЅР°"), new ("Р‘Р°Р»Р°РєРёРЅР°", "Р•РєР°С‚РµСЂРёРЅР°"), new ("Р¤РёР»РёРїС‡РµРЅРєРѕ", "РљРѕРЅСЃС‚Р°РЅС‚РёРЅ") },
+            "РРћРЎРЈ",
+            "РРћРЎРЈ Р’Р°СЃРёР»СЊРµРІР° РњР°СЂРёРЅР°, Р‘Р°Р»Р°РєРёРЅР° Р•РєР°С‚РµСЂРёРЅР°, Р¤РёР»РёРїС‡РµРЅРєРѕ РљРѕРЅСЃС‚Р°РЅС‚РёРЅ");
     }
 }

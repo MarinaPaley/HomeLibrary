@@ -90,6 +90,5 @@ namespace Domain
             book.Shelf = null;
             return this;
         }
-
     }
 }

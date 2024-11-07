@@ -4,12 +4,12 @@
 namespace TestDomain
 {
     using System;
-    using System.Xml.Linq;
     using Domain;
 
     /// <summary>
     /// Тесты для клсса <see cref="Domain.Shelf"/>.
     /// </summary>
+    [TestFixture]
     public sealed class ShelfTests
     {
         /// <summary>
@@ -68,7 +68,7 @@ namespace TestDomain
             var expected = 1;
 
             // act
-            var book = new Book("Война и мир", shelf, author); // AddShelf(book)
+            _ = new Book("Война и мир", shelf, author); // AddShelf(book)
             var actual = shelf.Books.Count;
 
             // assert
