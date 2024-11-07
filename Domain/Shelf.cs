@@ -44,10 +44,7 @@ namespace Domain
         /// <exception cref="ArgumentNullException"> Если книга <see langword="null"/>.</exception>
         public Shelf AddBook(Book book)
         {
-            if (book is null)
-            {
-                throw new ArgumentNullException(nameof(book));
-            }
+            ArgumentNullException.ThrowIfNull(book);
 
             this.Books.Add(book);
             book.Shelf = this;
@@ -77,9 +74,6 @@ namespace Domain
             : $"{this.Name} {this.Books.Join()}";
 
         /// <inheritdoc/>
-        public override string ToString() => $"{this.Name} {this.Books.Join()}";
-
-        /// <inheritdoc/>
         public override int GetHashCode() => this.Name.GetHashCode();
 
         /// <summary>
@@ -90,10 +84,7 @@ namespace Domain
         /// <exception cref="ArgumentNullException">Если книга <see langword="null"/>.</exception>
         internal Shelf RemoveBook(Book book)
         {
-            if (book is null)
-            {
-                throw new ArgumentNullException(nameof(book));
-            }
+            ArgumentNullException.ThrowIfNull(book);
 
             this.Books.Remove(book);
             book.Shelf = null;

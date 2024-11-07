@@ -76,10 +76,7 @@ namespace Domain
         /// <exception cref="ArgumentNullException"> Если книга <see langword="null"/>. </exception>
         public Author AddBook(Book book)
         {
-            if (book is null)
-            {
-                throw new ArgumentNullException(nameof(book));
-            }
+            ArgumentNullException.ThrowIfNull(book);
 
             this.Books.Add(book);
             book.Authors.Add(this);

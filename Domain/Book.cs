@@ -70,10 +70,7 @@ namespace Domain
         /// <exception cref="ArgumentNullException"> Если полка <see langword="null"/>.</exception>
         public bool ChangeShelf(Shelf shelf)
         {
-            if (shelf is null)
-            {
-                throw new ArgumentNullException(nameof(shelf));
-            }
+            ArgumentNullException.ThrowIfNull(shelf);
 
             _ = this.Shelf.RemoveBook(this);
             this.Shelf = shelf;
