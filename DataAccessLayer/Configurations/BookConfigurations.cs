@@ -1,5 +1,5 @@
-// <copyright file="BookConfigurations.cs" company="Васильева М.А.">
-// Copyright (c) Васильева М.А.. All rights reserved.
+п»ї// <copyright file="BookConfigurations.cs" company="Р’Р°СЃРёР»СЊРµРІР° Рњ.Рђ.">
+// Copyright (c) Р’Р°СЃРёР»СЊРµРІР° Рњ.Рђ.. All rights reserved.
 // </copyright>
 
 namespace DataAccessLayer.Configurations
@@ -9,7 +9,7 @@ namespace DataAccessLayer.Configurations
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
     /// <summary>
-    /// Конфигурация правил отображения сущности (<see cref="Domain.Book"/>) в таблицу БД.
+    /// РљРѕРЅС„РёРіСѓСЂР°С†РёСЏ РїСЂР°РІРёР» РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ СЃСѓС‰РЅРѕСЃС‚Рё (<see cref="Domain.Book"/>) РІ С‚Р°Р±Р»РёС†Сѓ Р‘Р”.
     /// </summary>
     internal sealed class BookConfigurations : IEntityTypeConfiguration<Book>
     {
