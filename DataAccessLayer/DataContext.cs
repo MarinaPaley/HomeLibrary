@@ -13,6 +13,11 @@ namespace DataAccessLayer
     /// </summary>
     public sealed class DataContext : DbContext
     {
+        public DataContext()
+            : base()
+        {
+        }
+
         /// <summary>
         /// Инициализирует новый экземпляр класса <see cref="DataContext"/>.
         /// </summary>

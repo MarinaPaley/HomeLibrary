@@ -11,7 +11,7 @@ namespace DataAccessLayer.Configurations
     /// <summary>
     /// Конфигурация правил отображения сущности (<see cref="Domain.Author"/>) в таблицу БД.
     /// </summary>
-    internal sealed class AuthorConfigurations : IEntityTypeConfiguration<Author>
+    public sealed class AuthorConfigurations : IEntityTypeConfiguration<Author>
     {
         /// <inheritdoc/>
         public void Configure(EntityTypeBuilder<Author> builder)

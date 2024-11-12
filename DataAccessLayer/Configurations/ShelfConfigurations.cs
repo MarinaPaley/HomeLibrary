@@ -11,7 +11,7 @@ namespace DataAccessLayer.Configurations
     /// <summary>
     /// Конфигурация правил отображения сущности (<see cref="Domain.Shelf"/>) в таблицу БД.
     /// </summary>
-    internal sealed class ShelfConfigurations : IEntityTypeConfiguration<Shelf>
+    public sealed class ShelfConfigurations : IEntityTypeConfiguration<Shelf>
     {
         /// <inheritdoc/>
         public void Configure(EntityTypeBuilder<Shelf> builder)

@@ -11,7 +11,7 @@ namespace DataAccessLayer.Configurations
     /// <summary>
     /// Конфигурация правил отображения сущности (<see cref="Domain.Book"/>) в таблицу БД.
     /// </summary>
-    internal sealed class BookConfigurations : IEntityTypeConfiguration<Book>
+    public sealed class BookConfigurations : IEntityTypeConfiguration<Book>
     {
         /// <inheritdoc/>
         public void Configure(EntityTypeBuilder<Book> builder)
